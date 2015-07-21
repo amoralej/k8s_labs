@@ -1,0 +1,53 @@
+# Managing images
+#
+# Repository
+#
+
+yum install docker-registry
+
+# if search option is desired (not included in RHEL or Atomic)
+
+yum localinstall ftp://ftp.muug.mb.ca/mirror/fedora/epel/7/x86_64/p/python-sqlalchemy-0.9.7-3.el7.x86_64.rpm
+
+# and modify following options in /etc/docker-registry.yml
+#     search_backend: sqlalchemy
+#     # SQLite search backend
+#     sqlalchemy_index_database: sqlite:////tmp/docker-registry.db
+#
+# Test search
+
+curl http://localhost:5000/v1/search|python -mjson.tool
+
+# Enabling ssl in docker registry is not included in docker-registry package, it requires a proxy as haproxy, nginx or apache to terminate ssl
+
+ 
+# Modify a docker image
+
+# 1. Modify your docker file
+
+
+
+# 2. Create your new docker image
+
+docker build --rm -t rhel7/app1:v3 -f Dokerfile .
+
+# 3. Inspect the just created image
+
+docker inspect rhel7/app1:v3
+docker history rhel7/app1:v3
+
+# 4. Push your image docker to registry
+
+docker tag 7ec44ebf82e9 192.168.122.1:5000/rhel7/app1:v3
+docker push 192.168.122.1:5000/rhel7/app1:v3
+
+# 5. Remove local images
+
+docker rmi 192.168.122.1:5000/rhel7/app1:v3
+docker rmi rhel7/app1:v3
+
+# 6. Execute a container with the just created image
+
+docker run -m 1024m -d --name app1_v3_1 -p 82:80 192.168.122.1:5000/rhel7/app1:v3
+
+

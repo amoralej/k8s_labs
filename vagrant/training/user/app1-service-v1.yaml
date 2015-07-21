@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1beta3
+metadata:
+  name: app1-service
+  labels:
+    name: app1-service
+    app: app1
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8082
+      targetPort: 80
+      protocol: TCP
+  publicIPs:
+    - 192.168.121.230
+    - 192.168.121.136
+  sessionAffinity: ClientIP
+  selector:
+    app: app1
+    version: v1
+
+

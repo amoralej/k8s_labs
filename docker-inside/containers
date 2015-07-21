@@ -1,0 +1,102 @@
+# 0. Configure internal docker registry
+# Modify /etc/sysconfig/docker
+
+ADD_REGISTRY='--add-registry registry.access.redhat.com --add-registry 10.32.244.206:5000'
+
+INSECURE_REGISTRY='--insecure-registry 10.32.244.206:5000'
+
+# List all images in the private registry
+
+curl http://10.32.244.206:5000/v1/search | python -mjson.tool
+
+
+# 1. Create two docker containers
+#
+
+mkdir /var/vol1
+touch /var/vol1/test
+
+docker run -it -v /vol2 -v /var/vol1/:/mnt/var/vol1 -m 1024m -d --name app1_v1_1 -p 80:80 rhel7/app1:v1
+docker run -it --volumes-from app1_v1_1 -m 1536m -d --name app1_v2_2 -p 81:80 rhel7/app1:v2
+
+
+# 2. Inspect selinux context for processes
+
+
+docker inspect 229957ae0607 |grep ProcessLabel
+ps -eZf|grep svirt|grep -v grep
+ls -Zl /var/lib/docker/containers/*/
+chcon -R system_u:object_r:svirt_sandbox_file_t:s0  /var/vol1
+
+
+# 3. Inspect cgroups for processes
+
+# docker create options regarding cgroups
+#  -c, --cpu-shares=
+#  --memory-swap=
+#  -m, --memory=
+
+cat /sys/fs/cgroup/memory/system.slice/docker-*/memory.limit_in_bytes
+cat /sys/fs/cgroup/memory/system.slice/docker-*/memory.usage_in_bytes
+
+# 4. Inspect namespaces
+
+docker run -it --rm --name tools1 10.32.244.206:5000/rhel7/rhel-tools
+ps -eopid,pidns,ipcns,utsns,mntns,netns,cmd|grep -e httpd -e sleep -e "switched-root"|grep -v grep
+
+nsenter -t 2155 -p -n -i -u -m
+
+# 5. Inspect storage devices
+
+docker info 
+lvs
+dmsetup ls --tree
+dmsetup status docker-....
+
+docker run -it --rm --name tools2 rhel7/rhel-tools
+
+dd if=/dev/zero of=/var/tmp/bigfile bs=1024k count=200M
+
+--------
+
+rm /var/tmp/bigfile
+
+-------
+
+
+# 6. Inspect networking devices
+
+brctl show
+docker run -it --rm --name tools3 --net=host 10.32.244.206:5000/rhel7/rhel-tools
+
+docker inspect -f '{{ json .NetworkSettings }}' app1_v1_1 | python -mjson.tool
+
+
+netstat -anp|grep -w -e 80 -e 81
+iptables -t nat -L -n -v
+iptables -S
+
+curl http://localhost:80
+curl http://localhost:81
+
+# 8. Systemd and docker
+
+systemctl |grep docker
+systemctl status docker-27d906a8c79abaf9df4f9a2cbfc727f4830c88899ccb92904bd0210991450d35.scope
+
+ll /run/systemd/system/docker-27d906a8c79abaf9df4f9a2cbfc727f4830c88899ccb92904bd0210991450d35.scope.d
+
+
+# 9. Super Privileged Containers
+
+# docker containers can be executed disabling selinux protection
+
+docker run --privileged -v /:/host -d stefwalter/cockpit-atomic:wip
+atomic run --spc stefwalter/cockpit-atomic:wip
+
+# Super Privileged Containers
+
+/usr/bin/docker run -t -i --rm --privileged -v /:/host -v /run:/run -v /etc/localtime:/etc/localtime --net=host --ipc=host --pid=host -e HOST=/host -e NAME=NAME -e IMAGE=IMAGE
+
+
+

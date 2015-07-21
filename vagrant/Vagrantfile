@@ -1,0 +1,39 @@
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = "atomic-rhel-7.1-3"
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+ 
+  config.vm.define "kubemaster1" do |c|
+    c.registration.username = ''
+    c.registration.password = ''
+    c.vm.hostname = "kubemaster1.example.com"
+    c.vm.provision "shell", path: "training/config-scripts/config_repo.sh"
+  end
+
+  config.vm.define "kubenode1" do |c|
+    c.registration.username = ''
+    c.registration.password = ''
+    c.vm.hostname = "kubenode1.example.com"
+    c.vm.provision "shell", path: "training/config-scripts/config_repo.sh"
+  end
+
+  config.vm.define "kubenode2" do |c|
+    c.registration.username = ''
+    c.registration.password = ''
+    c.vm.hostname = "kubenode2.example.com"
+    c.vm.provision "shell", path: "training/config-scripts/config_repo.sh"
+  end
+
+  config.vm.provider "libvirt" do |libvirt|
+    libvirt.driver = "kvm"
+    libvirt.host = "localhost"
+    libvirt.connect_via_ssh = true
+    libvirt.username = "root"
+    libvirt.storage_pool_name = "default"
+    libvirt.memory = 2000
+    libvirt.cpus = 1
+  end
+
+end

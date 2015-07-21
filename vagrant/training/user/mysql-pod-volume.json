@@ -1,0 +1,60 @@
+{
+  "id": "mysql-server",
+  "kind": "Pod",
+  "apiVersion": "v1beta3",
+  "metadata": {
+    "name": "mysql-server",
+    "labels": {
+      "name": "mysql-server"
+    }
+  },
+  "spec": {
+    "nodeSelector": {"volumes": "true"},
+    "containers": [
+      {
+        "name": "mysql-server",
+        "image": "mysql_demo:latest",
+        "imagePullPolicy": "IfNotPresent",
+        "ports": [{
+            "containerPort": 3306
+        }],
+        "env": [
+          {
+             "name": "MYSQL_USER",
+             "value": "mysql"
+          },
+          {
+             "name": "MYSQL_PASSWORD",
+             "value": "mysql"
+          },
+          {
+             "name": "MYSQL_DATABASE",
+             "value": "sample"
+          },
+          {
+             "name": "MYSQL_ROOT_PASSWORD",
+             "value": "supersecret"
+          },
+          {
+             "name": "DATADIR",
+             "value": "/tmp/data"
+          }
+        ],
+        "resources": {
+          "limits": {
+            
+            "cpu": "1",
+            "memory": "500Mi"
+          }
+        },
+        "volumeMounts": [
+          { "name": "data", "mountPath": "/tmp/data" }
+        ]
+      }
+    ],
+    "volumes": [
+      { "name": "data", "hostPath": {"path": "/var/tmp/data1"}}
+    ]
+  }
+}
+

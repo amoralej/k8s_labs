@@ -1,0 +1,26 @@
+id: wildfly-controller
+kind: ReplicationController
+apiVersion: v1beta3
+metadata:
+  name: wildfly-controller
+  namespace: default
+spec:
+  replicas: 1
+  replicaSelector:
+    app: employees
+  template:
+    metadata:
+      name: wildfly-pod
+      labels:
+        app: employees
+    spec:
+      containers:
+      - image: demo/wildfly
+        imagePullPolicy: IfNotPresent
+        name: javaee7-hol
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+          name: wildfly-port
+      restartPolicy: Always
+

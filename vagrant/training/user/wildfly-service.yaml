@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1beta3
+metadata:
+  name: wildfly-service
+  labels:
+    name: wildfly-service
+    app: employees
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8081
+      targetPort: 8080
+      protocol: TCP
+  publicIPs:
+    - 192.168.121.230
+    - 192.168.121.136
+  sessionAffinity: ClientIP
+  selector:
+    app: employees
+
+

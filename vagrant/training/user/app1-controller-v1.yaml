@@ -1,0 +1,26 @@
+kind: ReplicationController
+apiVersion: v1beta3
+metadata:
+  name: app1-controller
+  namespace: default
+spec:
+  replicas: 2
+  replicaSelector:
+    app: app1
+  template:
+    metadata:
+      name: app1-pod
+      labels:
+        app: app1
+        version: v1
+    spec:
+      containers:
+      - image: rhel7/app1:v1
+        imagePullPolicy: IfNotPresent
+        name: app1
+        ports:
+        - containerPort: 80
+          protocol: TCP
+          name: app1-port
+      restartPolicy: Always
+

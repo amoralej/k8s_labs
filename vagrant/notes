@@ -1,0 +1,34 @@
+1. Prepare your host to run vagrant with libvirt provider :
+
+For RHEL7:
+
+install vagrant rpm from https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.rpm
+
+Install following dependencies:
+
+yum install libxslt-devel libxml2-devel libvirt-devel libffi.i686 libffi-devel rubygems ruby-devel gcc libvirt-devel
+yum localinstall ftp://ftp.muug.mb.ca/mirror/fedora/epel/7/x86_64/r/rubygem-ruby-libvirt-0.4.0-4.el7.x86_64.rpm
+
+
+Install vagrant-libvirt plugin
+
+
+sudo alternatives --set ld /usr/bin/ld.gold
+
+vagrant plugin install vagrant-libvirt
+vagrant plugin install vagrant-registration
+vagrant plugin install vagrant-hostmanager
+vagrant plugin install vagrant-atomic
+
+
+sudo alternatives --set ld /usr/bin/ld
+
+2. Download de vagrant boxes provided by Red Hat . They can be downloaded from access.redhat.com or from:
+
+http://10.32.244.206/images/rhel-atomic-libvirt-7.1-3.x86_64.box
+
+Add this boxes to your local vagrant
+
+vagrant box add --provider libvirt --name atomic-rhel-7.1.3 ./rhel-atomic-libvirt-7.1-3.x86_64.box
+
+Create your Vagrantfila and vagran up ip!!!

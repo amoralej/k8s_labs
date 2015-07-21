@@ -1,0 +1,26 @@
+{
+  "id": "db",
+  "kind": "Service",
+  "apiVersion": "v1beta3",
+  "metadata":{
+    "name":"db",
+    "labels":{
+       "name":"mysql-server"
+    }
+  },
+  "spec":{
+    "ports": [
+      {
+        "name": "mysql-port",
+        "port":3306,
+        "targetPort":3306,
+        "protocol":"TCP"
+      }
+    ],
+    "selector":{
+       "name":"mysql-server"
+    },
+    "sessionAffinity": "ClientIP",
+    "type": "NodePort"
+  }
+}

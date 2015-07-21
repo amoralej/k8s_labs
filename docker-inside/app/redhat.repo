@@ -1,0 +1,17 @@
+#
+# Certificate-Based Repositories
+# Managed by (rhsm) subscription-manager
+#
+# *** This file is auto-generated.  Changes made here will be over-written. ***
+# *** Use "subscription-manager repo-override --help" if you wish to make changes. ***
+#
+# If this file is empty and this system is subscribed consider 
+# a "yum repolist" to refresh available repos
+#
+
+[rhel-7]
+name = Red Hat Enterprise Linux 7
+baseurl = http://192.168.122.1/repos/rhel7
+enabled = 1
+gpgcheck = 0
+

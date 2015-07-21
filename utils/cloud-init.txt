@@ -1,0 +1,6 @@
+#cloud-config
+password: atomic
+chpasswd: {expire: False}
+ssh_pwauth: True
+hostname: atomic1
+fqdn: atomic1.example.com

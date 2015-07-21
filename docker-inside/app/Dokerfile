@@ -1,0 +1,6 @@
+FROM rhel7/apache:v1
+
+MAINTAINER "Alfredo Moralejo" <amoralej@redhat.com>
+
+RUN echo "Apache version 3" >> /var/www/html/index.html
+
