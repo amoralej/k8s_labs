@@ -29,7 +29,7 @@ cp ./libvirt/atomic0-cidata.iso /var/lib/libvirt/images/
 chown -R qemu:qemu /var/lib/libvirt/images/
 
 # Clean up the original file if you want
-rm /tmp/rhel-atomic-cloud-7.1-1.x86_64.qcow2
+rm -f /tmp/rhel-atomic-cloud-7.1-1.x86_64.qcow2
 ```
 
 Configure add the images via virtmanager and add the iso a cd rom via add hardware
