@@ -1,5 +1,4 @@
 {
-  "id": "db",
   "kind": "Service",
   "apiVersion": "v1beta3",
   "metadata":{
