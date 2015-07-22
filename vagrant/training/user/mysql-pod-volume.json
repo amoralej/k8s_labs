@@ -8,11 +8,10 @@
     }
   },
   "spec": {
-    "nodeSelector": {"volumes": "true"},
     "containers": [
       {
         "name": "mysql-server",
-        "image": "mysql_demo:latest",
+        "image": "openshift3/mysql-55-rhel7",
         "imagePullPolicy": "IfNotPresent",
         "ports": [{
             "containerPort": 3306
@@ -33,10 +32,6 @@
           {
              "name": "MYSQL_ROOT_PASSWORD",
              "value": "supersecret"
-          },
-          {
-             "name": "DATADIR",
-             "value": "/tmp/data"
           }
         ],
         "resources": {
@@ -47,7 +42,7 @@
           }
         },
         "volumeMounts": [
-          { "name": "data", "mountPath": "/tmp/data" }
+          { "name": "data", "mountPath": "/var/lib/mysql/data" }
         ]
       }
     ],
@@ -56,4 +51,3 @@
     ]
   }
 }
-
