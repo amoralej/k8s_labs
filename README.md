@@ -20,14 +20,19 @@ wget wget http://10.32.244.206/images/rhel-atomic-cloud-7.1-1.x86_64.qcow2
 cp rhel-atomic-cloud-7.1-1.x86_64.qcow2 /var/lib/libvirt/images/rhel-atomic-cloud-7.1-1.x86_64-00.qcow2
 cp rhel-atomic-cloud-7.1-1.x86_64.qcow2 /var/lib/libvirt/images/rhel-atomic-cloud-7.1-1.x86_64-01.qcow2
 cp rhel-atomic-cloud-7.1-1.x86_64.qcow2 /var/lib/libvirt/images/rhel-atomic-cloud-7.1-1.x86_64-02.qcow2
+cd -
 
-# Copy over iso from 
+# Copy over iso from the libvirt directory of this repo
+cp ./libvirt/atomic0-cidata.iso /var/lib/libvirt/images/
 
-# Correct the 
+# Correct the permissions
+chown -R qemu:qemu /var/lib/libvirt/images/
 
-# Clean up the original file if you like
+# Clean up the original file if you want
 rm /tmp/rhel-atomic-cloud-7.1-1.x86_64.qcow2
 ```
+
+Configure add the images via virtmanager and add the iso a cd rom via add hardware
 
 Once you have booted your atomic vm login with:
 
