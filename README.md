@@ -26,6 +26,10 @@ sudo -i
 ```
 # Register your host with rhn (you will need you subscription username and password)
 subscription-manager register
+```
+
+```
+# Attach the host
 subscription-manager attach --auto
 ```
 
