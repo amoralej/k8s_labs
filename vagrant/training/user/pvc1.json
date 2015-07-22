@@ -1,0 +1,18 @@
+{
+  "apiVersion": "v1beta3",
+  "kind": "PersistentVolume",
+  "metadata": {
+    "name": "data2"
+  },
+  "spec": {
+    "capacity": {
+      "storage": "1Gi"
+    },
+    "accessModes": [ "ReadWriteMany" ],
+    "NFS": {
+      "server": "10.32.244.100",
+      "path": "/export/data2"
+    }
+  }
+}
+

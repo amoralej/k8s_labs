@@ -1,0 +1,30 @@
+{
+  "kind": "Pod",
+  "apiVersion": "v1beta3",
+  "metadata": {
+    "name": "rhel7"
+  },
+  "spec": {
+    "containers": [
+      {
+        "name": "rhel",
+        "image": "rhel7:latest",
+        "imagePullPolicy": "IfNotPresent",
+        "command": ["sleep", "1000"],
+        "resources": {
+          "limits": {
+            "cpu": "1",
+            "memory": "500Mi"
+          }
+        },
+        "volumeMounts": [
+          { "name": "data", "mountPath": "/tmp/data" }
+        ]
+      }
+    ],
+    "volumes": [
+      { "name": "data", "persistentVolumeClaim": {"claimName": "claim1"}}
+    ]
+  }
+}
+

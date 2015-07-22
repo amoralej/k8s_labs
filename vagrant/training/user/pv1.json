@@ -1,0 +1,10 @@
+{
+  "apiVersion": "v1beta2",
+  "kind": "Secret",
+  "id": "secret-test",
+  "data": {
+    "username": "YWRtaW4=",
+    "password": "dGVzdA=="
+  }
+}
+
