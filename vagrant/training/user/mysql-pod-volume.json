@@ -1,5 +1,4 @@
 {
-  "id": "mysql-server",
   "kind": "Pod",
   "apiVersion": "v1beta3",
   "metadata": {
@@ -53,7 +52,7 @@
       }
     ],
     "volumes": [
-      { "name": "data", "hostPath": {"path": "/var/tmp/data1"}}
+      { "name": "data", "nfs": {"server": "10.32.244.100","path": "/exports/data1"}}
     ]
   }
 }
