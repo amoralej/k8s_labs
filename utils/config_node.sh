@@ -1,4 +1,5 @@
-for i in $(ls /etc/kubernetes/*); do cp $i{,.orig}; echo "Making a backup of $i"; done
+#!/bin/bash
+
 
 MASTER_IP=$1
 
@@ -7,6 +8,8 @@ then
   echo "usage: config_node.sh <master ip>"
   exit 1
 fi
+
+for i in $(ls /etc/kubernetes/*); do cp $i{,.orig}; echo "Making a backup of $i"; done
 
 echo "FLANNEL_ETCD="http://$MASTER_IP:4001"" >> /etc/sysconfig/flanneld
 
