@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 for i in $(ls /etc/kubernetes/*); do cp $i{,.orig}; echo "Making a backup of $i"; done
