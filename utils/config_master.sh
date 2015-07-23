@@ -1,6 +1,7 @@
-for i in $(ls /etc/kubernetes/*); do cp $i{,.orig}; echo "Making a backup of $i"; done
 
-MASTER_NAME=
+#!/bin/bash
+
+for i in $(ls /etc/kubernetes/*); do cp $i{,.orig}; echo "Making a backup of $i"; done
 
 IP=$(ip a show eth0|grep -w inet|awk '{print $2}'|awk -F/ '{print $1}')
 
