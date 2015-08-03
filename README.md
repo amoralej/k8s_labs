@@ -24,8 +24,9 @@ cd -
 
 # Copy over iso from the libvirt directory of this repo
 cp ./libvirt/atomic0-cidata.iso /var/lib/libvirt/images/
+```
 
-# If you prefer to create a customized iso image containing the cloud-init user-data, create a directory:
+If you prefer to create a customized iso image containing the cloud-init user-data, create a directory:
 
 ```
 mkdir -p /tmp/iso
