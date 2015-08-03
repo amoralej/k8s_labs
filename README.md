@@ -25,6 +25,36 @@ cd -
 # Copy over iso from the libvirt directory of this repo
 cp ./libvirt/atomic0-cidata.iso /var/lib/libvirt/images/
 
+# If you prefer to create a customized iso image containing the cloud-init user-data, create a directory:
+
+```
+mkdir -p /tmp/iso
+```
+
+Add file /tmp/iso/meta-data with content (modify as appropiate):
+
+```
+instance-id: atomic2
+local-hostname: atomic2
+```
+
+Add file /tmp/iso/user-data with content (modify as appropiate):
+
+```
+#cloud-config
+password: atomic
+chpasswd: {expire: False}
+ssh_pwauth: True
+hostname: atomic2
+fqdn: atomic2.example.com
+```
+
+And finally create the iso file that can be attached to the VM:
+
+```
+genisoimage -output atomic2.iso -volid cidata -joliet -rock /tmp/iso/meta-data /tmp/iso/user-data
+```
+
 # Correct the permissions
 chown -R qemu:qemu /var/lib/libvirt/images/
 
@@ -82,3 +112,5 @@ You will need to login back into the host and update the system
 # Upgrade the host
 atomic host upgrade
 ```
+
+

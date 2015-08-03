@@ -1,0 +1,35 @@
+#cloud-config
+password: atomic
+chpasswd: {expire: False}
+ssh_pwauth: True
+hostname: atomic1
+fqdn: atomic1.example.com
+
+
+
+# To create an iso image containing the cloud-init user-data than can be attached to a vm running in kvm
+
+
+Create a directory 
+
+mkdir -p /tmp/iso
+
+Add file /tmp/iso/meta-data with content (modify as appropiate):
+
+instance-id: atomic1
+local-hostname: atomic1
+
+
+Add file /tmp/iso/user-data with content (modify as appropiate):
+
+#cloud-config
+password: atomic
+chpasswd: {expire: False}
+ssh_pwauth: True
+hostname: atomic1
+fqdn: atomic1.example.com
+
+And finally create the iso file that can be attached to the VM:
+
+genisoimage -output atomic2.iso -volid cidata -joliet -rock /tmp/iso/meta-data /tmp/iso/user-data
+
