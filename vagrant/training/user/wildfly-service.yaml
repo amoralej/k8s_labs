@@ -6,14 +6,12 @@ metadata:
     name: wildfly-service
     app: employees
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 8081
       targetPort: 8080
       protocol: TCP
-  publicIPs:
-    - 192.168.121.230
-    - 192.168.121.136
+      nodePort:32002
   sessionAffinity: ClientIP
   selector:
     app: employees
