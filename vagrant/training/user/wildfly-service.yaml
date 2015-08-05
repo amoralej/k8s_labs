@@ -11,7 +11,7 @@ spec:
     - port: 8081
       targetPort: 8080
       protocol: TCP
-      nodePort:32002
+      nodePort: 32002
   sessionAffinity: ClientIP
   selector:
     app: employees
