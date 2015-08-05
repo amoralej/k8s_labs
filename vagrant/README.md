@@ -1,6 +1,6 @@
 ## Creating a kubernetes cluster using vagrant and atomic host
 
-** IMPORTANT NOTE: ** The goal of this instructions is not to create a production-ready kubernetes cluster but tu build a simple environemen that can be used for learning or testing purposes. Note that this environment is not configured in a secure way (not SSL encryption in APIs, not authentication or authorization, etc...)
+* IMPORTANT NOTE: * The goal of this instructions is not to create a production-ready kubernetes cluster but tu build a simple environemen that can be used for learning or testing purposes. Note that this environment is not configured in a secure way (not SSL encryption in APIs, not authentication or authorization, etc...)
 
 ### Prepare your host to run vagrant with libvirt provider :
 
