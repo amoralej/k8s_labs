@@ -6,14 +6,12 @@ metadata:
     name: app1-service
     app: app1
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 8082
       targetPort: 80
       protocol: TCP
-  publicIPs:
-    - 192.168.121.230
-    - 192.168.121.136
+      nodePort: 32001
   sessionAffinity: ClientIP
   selector:
     app: app1
