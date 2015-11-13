@@ -1,4 +1,4 @@
-k8s Labs - RHEL Atomic 
+k8s Labs - RHEL Atomic
 ======================
 
 Supporting documentation and files.
@@ -57,9 +57,13 @@ genisoimage -output atomic2.iso -volid cidata -joliet -rock /tmp/iso/meta-data /
 ```
 
 # Correct the permissions
+
+```
 chown -R qemu:qemu /var/lib/libvirt/images/
+```
 
 # Clean up the original file if you want
+```
 rm -f /tmp/rhel-atomic-cloud-7.1-1.x86_64.qcow2
 ```
 
@@ -93,7 +97,7 @@ subscription-manager list --available
 ```
 
 ```
-# Edit the docker settings to allow insecure access to insecure registers 
+# Edit the docker settings to allow insecure access to insecure registers
 /etc/sysconfig/docker
 ```
 
@@ -113,5 +117,3 @@ You will need to login back into the host and update the system
 # Upgrade the host
 atomic host upgrade
 ```
-
-
